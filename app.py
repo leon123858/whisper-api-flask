@@ -16,7 +16,7 @@ CORS(app)
 
 @app.route("/")
 def root_handler():
-    return ""
+    return "OK"
 
 @app.route('/whisper', methods=['POST'])
 def whisper_handler():
