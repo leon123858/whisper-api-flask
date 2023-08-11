@@ -10,4 +10,4 @@ COPY app.py app.py
 
 EXPOSE 5000
 
-CMD [ "gunicorn","-w4","-b 0.0.0.0:8000","app"]
+CMD [ "gunicorn","-w4","-b 0.0.0.0:8000","-t","120","app"]
