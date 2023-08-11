@@ -8,6 +8,6 @@ RUN pip3 install -r requirements.txt
 RUN python -c 'import whisper;whisper.load_model("large", device="cpu")'
 COPY app.py app.py
 
-EXPOSE 5000
+EXPOSE 8000
 
-CMD [ "gunicorn","-w1","-b 0.0.0.0:8000","-t","120","app"]
+CMD [ "gunicorn","-w1","-b 0.0.0.0:8000","-t","600","app:app"]
