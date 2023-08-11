@@ -3,15 +3,11 @@ FROM python:3.10-slim
 WORKDIR /python-docker
 
 COPY requirements.txt requirements.txt
-RUN apt-get update && apt-get install git -y
-# If are experiencing errors ImportError: cannot import name 'soft_unicode' from 'markupsafe'  please uncomment below
-# RUN pip3 install markupsafe==2.0.1
+RUN apt-get update -q && apt-get install -qy git ffmpeg
 RUN pip3 install -r requirements.txt
-RUN pip3 install "git+https://github.com/openai/whisper.git" 
-RUN apt-get install -y ffmpeg
-
-COPY . .
+RUN python -c 'import whisper;whisper.load_model("large", device="cpu")'
+COPY app.py app.py
 
 EXPOSE 5000
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "gunicorn","-w4","-b 0.0.0.0:8000","app"]

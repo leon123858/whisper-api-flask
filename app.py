@@ -9,18 +9,17 @@ torch.cuda.is_available()
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Load the Whisper model:
-model = whisper.load_model("base", device=DEVICE)
+model = whisper.load_model("large", device=DEVICE)
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/")
-def hello():
-    return "Whisper Hello World!"
-
+def root_handler():
+    return ""
 
 @app.route('/whisper', methods=['POST'])
-def handler():
+def whisper_handler():
     if not request.files:
         # If the user didn't submit any files, return a 400 (Bad Request) error.
         abort(400)
