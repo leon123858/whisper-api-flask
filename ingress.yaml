@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: example-issuer
+    cloud.google.com/neg: '{"exposed_ports": {"80":{"name": "whisper"}}}'
+    ingress.gcp.kubernetes.io/pre-shared-cert: mcrt-fa4d50f1-2a9d-41f3-82b6-cfde06671c65
+    ingress.kubernetes.io/backends: '{"k8s1-af678659-default-whisper-whisper-api-8000-11d86ef0":"HEALTHY","k8s1-af678659-kube-system-default-http-backend-80-66e9bef9":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-nkczmpqg-default-whisper-whisper-api-a12mexde
+    ingress.kubernetes.io/https-forwarding-rule: k8s2-fs-nkczmpqg-default-whisper-whisper-api-a12mexde
+    ingress.kubernetes.io/https-target-proxy: k8s2-ts-nkczmpqg-default-whisper-whisper-api-a12mexde
+    ingress.kubernetes.io/ssl-cert: mcrt-fa4d50f1-2a9d-41f3-82b6-cfde06671c65,k8s2-cr-nkczmpqg-dtuzy6uq0jjerx0m-3b089a1b264887b6
+    ingress.kubernetes.io/target-proxy: k8s2-tp-nkczmpqg-default-whisper-whisper-api-a12mexde
+    ingress.kubernetes.io/url-map: k8s2-um-nkczmpqg-default-whisper-whisper-api-a12mexde
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.global-static-ip-name: whisper
+    meta.helm.sh/release-name: whisper
+    meta.helm.sh/release-namespace: default
+    networking.gke.io/managed-certificates: managed-cert
+  creationTimestamp: "2023-08-14T16:50:41Z"
+  finalizers:
+  - networking.gke.io/ingress-finalizer-V2
+  generation: 4
+  labels:
+    app.kubernetes.io/instance: whisper
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: whisper-api
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: whisper-api-0.1.0
+  name: whisper-whisper-api
+  namespace: default
+  resourceVersion: "3017984"
+  uid: 7409f378-2aba-4fc5-a200-f0f2cc7d09bf
+spec:
+  rules:
+  - host: whisper.sandbox.eng.zencore.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: whisper-whisper-api
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - whisper.sandbox.eng.zencore.dev
+    secretName: whisper-sandbox-tls
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.160.203.212
