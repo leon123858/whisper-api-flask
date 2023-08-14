@@ -1,6 +1,7 @@
 from flask import Flask, abort, request
 from flask_cors import CORS
 from tempfile import NamedTemporaryFile
+from flasgger import Swagger
 import whisper
 import torch
 
@@ -14,22 +15,16 @@ model = whisper.load_model("large", device=DEVICE)
 app = Flask(__name__)
 CORS(app)
 
+app.config['SWAGGER'] = {
+    'title': 'Whisper API',
+    'uiversion': 3
+}
+
+swagger = Swagger(app)
+
 @app.route("/")
 def root_handler():
     return "OK"
-
-from flasgger import Swagger
-
-app.config['SWAGGER'] = {
-    'title': 'My API',
-    'uiversion': 3
-}
-swagger = Swagger(app)
-
-@app.route("/api/docs")
-def docs():
-    return swagger.template
-
 
 @app.route('/whisper', methods=['POST'])
 def whisper_handler():
