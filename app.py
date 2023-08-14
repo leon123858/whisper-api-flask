@@ -18,6 +18,19 @@ CORS(app)
 def root_handler():
     return "OK"
 
+from flasgger import Swagger
+
+app.config['SWAGGER'] = {
+    'title': 'My API',
+    'uiversion': 3
+}
+swagger = Swagger(app)
+
+@app.route("/api/docs")
+def docs():
+    return swagger.template
+
+
 @app.route('/whisper', methods=['POST'])
 def whisper_handler():
     if not request.files:

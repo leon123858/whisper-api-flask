@@ -4,3 +4,4 @@ luminoth
 git+https://github.com/openai/whisper.git
 gunicorn
 markupsafe==2.0.1
+flasgger
