@@ -6,7 +6,6 @@ COPY requirements.txt requirements.txt
 RUN apt-get update -q && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ffmpeg python3-pip && \
  apt-get clean autoclean && apt-get autoremove --yes
 RUN pip3 install -r requirements.txt
-RUN python3 -c 'import whisper;whisper.load_model("large", device="cpu")'
 COPY app.py app.py
 
 EXPOSE 8000
