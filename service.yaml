@@ -3,28 +3,10 @@ kind: Service
 metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-    cloud.google.com/neg-status: '{"network_endpoint_groups":{"8000":"k8s1-af678659-default-whisper-whisper-api-8000-11d86ef0"},"zones":["us-west1-b","us-west1-c"]}'
-    meta.helm.sh/release-name: whisper
-    meta.helm.sh/release-namespace: default
-  creationTimestamp: "2023-08-14T15:30:05Z"
   labels:
-    app.kubernetes.io/instance: whisper
-    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: whisper-api
-    app.kubernetes.io/version: 1.16.0
-    helm.sh/chart: whisper-api-0.1.0
   name: whisper-whisper-api
-  namespace: default
-  resourceVersion: "2960900"
-  uid: a25827f3-d363-4055-8c4c-062bfdd8f8ab
 spec:
-  clusterIP: 34.118.229.44
-  clusterIPs:
-  - 34.118.229.44
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
   - name: http
     port: 8000
@@ -35,5 +17,3 @@ spec:
     app.kubernetes.io/name: whisper-api
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}
