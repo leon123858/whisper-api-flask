@@ -1,0 +1,16 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: whisper.sandbox.eng.zencore.dev
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: 
+    - secretName: whisper-sandbox-tls
+      hosts:
+        - whisper.sandbox.eng.zencore.dev
+nodeSelector:
+  cloud.google.com/gke-accelerator: nvidia-tesla-t4
+resources:
+  limits:
+    nvidia.com/gpu: 1
