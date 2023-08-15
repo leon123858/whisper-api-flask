@@ -1,5 +1,9 @@
 ingress:
   enabled: true
+  annotations:
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.global-static-ip-name: whisper
+    networking.gke.io/managed-certificates: managed-cert
   hosts:
     - host: whisper.sandbox.eng.zencore.dev
       paths:
